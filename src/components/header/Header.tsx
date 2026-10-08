@@ -12,7 +12,7 @@ const Header = () => {
         <div className="navbar px-0 py-0">
           <div className="flex-1">
             <Link
-              className="btn hover:bg-transparent border-0 shadow-none px-0"
+              className="hover:bg-transparent border-0 shadow-none px-0"
               href="/"
             >
               <div className="flex items-center gap-2">

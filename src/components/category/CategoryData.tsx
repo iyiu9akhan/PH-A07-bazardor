@@ -7,9 +7,9 @@ export default function CategoryData({ data }: { data: categoryType[] }) {
   const pathname = usePathname();
 
   return (
-    <div className="border border-[#F0F5F0] bg-componentColor">
+    <div className="border-t border-[#E1E8E1] bg-componentColor">
       <div className="mx-auto w-full max-w-6xl px-4">
-        <ul className="flex items-center gap-1 overflow-x-auto my-2">
+        <ul className="flex items-center gap-1 overflow-x-auto py-2">
           {data.map((c: categoryType) => {
             const categoryPath = `/category/${c.id}`;
             const isActive = pathname === categoryPath;

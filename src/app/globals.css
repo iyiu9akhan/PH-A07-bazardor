@@ -6,7 +6,7 @@ html {
   font-family:
     var(--font-quicksand), var(--font-hind-siliguri), sans-serif !important;
   background-color: #f0f5f0;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 @theme {
@@ -14,3 +14,22 @@ html {
   --color-brand: #05893e;
   --color-primaryText: #1d271f;
 }
+
+
+/* .marquee-track {
+  animation: marquee 35s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+} */
