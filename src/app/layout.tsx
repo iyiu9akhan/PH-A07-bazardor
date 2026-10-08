@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { Quicksand, Hind_Siliguri } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
-// import MarqueeWrapper from "@/components/marquee/MarqueeWrapper";
 import MarqueeText from "@/components/marquee/MarqueeText";
 import Footer from "@/components/footer/Footer";
 
@@ -30,15 +29,15 @@ export default function RootLayout({
       data-theme="light"
       className={`${hindSiliguri.variable} ${quicksand.variable} antialiased`}
     >
-      <body className="min-h-screen bg-base-100 relative">
+      <body className="min-h-screen bg-base-100 relative flex flex-col">
         <div className="fixed top-0 left-0 right-0 z-50 bg-componentColor ">
           <Header />
           <Category />
         </div>
 
-        <div className="pt-28.75">
+        <div className="pt-28.75 flex flex-col flex-1">
           <MarqueeText />
-          {children}
+          <div className="flex-1">{children}</div>
           <Footer />
         </div>
       </body>

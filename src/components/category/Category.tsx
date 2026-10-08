@@ -1,6 +1,8 @@
 import { cacheLife } from "next/cache";
 import { categoryType } from "@/types/apiDataType";
-import CategoryData from "./CategoryData";
+import ActiveCategory from "@/components/category/ActiveCategory";
+import CategoryList from "@/components/category/CategoryList";
+
 import { Suspense } from "react";
 
 const Category = async () => {
@@ -9,18 +11,13 @@ const Category = async () => {
 
   const res = await fetch(
     "https://api.abcz.workers.dev/api/bazardor/categories",
-    {
-      next: {
-        revalidate: 60,
-      },
-    },
   );
 
   const data: categoryType[] = await res.json();
 
   return (
-    <Suspense fallback={null}>
-      <CategoryData data={data} />
+    <Suspense fallback={<CategoryList data={data} />}>
+      <ActiveCategory data={data} />
     </Suspense>
   );
 };

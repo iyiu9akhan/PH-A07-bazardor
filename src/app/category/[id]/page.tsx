@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import CategoryContent from "@/components/category/CategoryContent";
+import CategoryPageContent from "@/components/category/CategoryPageContent";
 
 export default function CategoryPage({
   params,
@@ -15,7 +15,7 @@ export default function CategoryPage({
           </div>
         }
       >
-        <CategoryContent params={params} />
+        <CategoryPageContent params={params} />
       </Suspense>
     </div>
   );

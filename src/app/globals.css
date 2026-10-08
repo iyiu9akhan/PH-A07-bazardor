@@ -6,10 +6,8 @@ html {
   font-family:
     var(--font-quicksand), var(--font-hind-siliguri), sans-serif !important;
   background-color: #f0f5f0;
-  /* scroll-behavior: smooth; */
-  /* height: 100%; */
-  /* overflow-y: auto; */
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 
 @theme {
@@ -18,21 +16,3 @@ html {
   --color-primaryText: #1d271f;
   --color-secondaryText: #f3fbf4;
 }
-
-/* .marquee-track {
-  animation: marquee 35s linear infinite;
-}
-
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-} */

@@ -3,18 +3,15 @@ import Link from "next/link";
 import brandLogo from "@/assets/brand-logo.png";
 import profileImage from "@/assets/profileImg.png";
 import CurrentDate from "./CurrentDate";
+import ScrollTopLink from "./ScrollTopLink";
 
 const Header = () => {
   return (
-    <div className="bg-componentColor" id="/">
+    <div className="bg-componentColor">
       <div className="px-4 max-w-6xl mx-auto">
         <div className="navbar px-0 py-0">
           <div className="flex-1">
-            <Link
-              className="hover:bg-transparent border-0 shadow-none px-0"
-              href="/"
-              scroll={true}
-            >
+            <ScrollTopLink>
               <div className="flex items-center gap-2">
                 <Image
                   src={brandLogo}
@@ -30,8 +27,9 @@ const Header = () => {
                   <CurrentDate />
                 </div>
               </div>
-            </Link>
+            </ScrollTopLink>
           </div>
+
           <div className="flex-none">
             <Link href="/">
               <div className="flex items-center gap-2">

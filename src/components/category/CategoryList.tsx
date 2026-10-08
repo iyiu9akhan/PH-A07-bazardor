@@ -1,11 +1,13 @@
-"use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { categoryType } from "@/types/apiDataType";
 
-export default function CategoryData({ data }: { data: categoryType[] }) {
-  const pathname = usePathname();
-
+export default function CategoryList({
+  data,
+  pathname,
+}: {
+  data: categoryType[];
+  pathname?: string;
+}) {
   return (
     <div className="border-y border-[#E1E8E1] bg-componentColor">
       <div className="mx-auto w-full max-w-6xl px-4">

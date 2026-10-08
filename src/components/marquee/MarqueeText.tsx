@@ -87,9 +87,7 @@ export default async function MarqueeText() {
               >
                 <span>{product.image || product.categoryIcon}</span>
 
-                <span className="text-slate-700">
-                  {product.nameBn}
-                </span>
+                <span className="text-slate-700">{product.nameBn}</span>
 
                 <span className="font-semibold text-slate-900">
                   {convertToBanglaNumber(product.today)} টাকা/
@@ -99,13 +97,10 @@ export default async function MarqueeText() {
                 {changePct !== 0 && (
                   <span
                     className={
-                      isUp
-                        ? "text-xs text-red-600"
-                        : "text-xs text-green-600"
+                      isUp ? "text-xs text-red-600" : "text-xs text-green-600"
                     }
                   >
-                    {isUp ? "▲" : "▼"}{" "}
-                    {convertToBanglaNumber(changePct)}%
+                    {isUp ? "▲" : "▼"} {convertToBanglaNumber(changePct)}%
                   </span>
                 )}
               </div>

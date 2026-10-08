@@ -3,6 +3,7 @@ import CurrentDate from "@/components/header/CurrentDate";
 import Link from "next/link";
 import Image from "next/image";
 import bannerImg from "@/assets/bannerImg.png";
+
 const Banner = () => {
   return (
     <div className="max-w-6xl mx-auto px-4">
@@ -24,14 +25,13 @@ const Banner = () => {
               boxShadow:
                 "0px 4px 3px -2px rgba(5, 137, 62, 0.5), 0px 3px 2px -2px rgba(5, 137, 62, 0.5)",
             }}
-            className=""
           >
             <p className="font-semibold text-[14px] leading-5.25 text-secondaryText bg-brand rounded-lg px-5.75 py-2.5 border border-[#047F39] inline-block mb-5">
               সব পণ্য দেখুন
             </p>
           </Link>
         </div>
-       <Image src={bannerImg} alt="banner img" className="mx-auto md:mx-0" />
+        <Image src={bannerImg} alt="banner img" className="mx-auto md:mx-0" />
       </div>
     </div>
   );
