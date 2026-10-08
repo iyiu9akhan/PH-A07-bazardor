@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import brandLogo from "@/assets/brand-logo.png";
@@ -7,13 +6,14 @@ import CurrentDate from "./CurrentDate";
 
 const Header = () => {
   return (
-    <div className="bg-componentColor">
+    <div className="bg-componentColor" id="/">
       <div className="px-4 max-w-6xl mx-auto">
         <div className="navbar px-0 py-0">
           <div className="flex-1">
             <Link
               className="hover:bg-transparent border-0 shadow-none px-0"
               href="/"
+              scroll={true}
             >
               <div className="flex items-center gap-2">
                 <Image

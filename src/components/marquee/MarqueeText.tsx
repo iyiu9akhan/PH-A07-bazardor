@@ -74,7 +74,7 @@ export default async function MarqueeText() {
         }
       `}</style>
 
-      <div className="w-full overflow-hidden border-y border-[#E1E8E1] bg-componentColor">
+      <div className="w-full overflow-hidden border-b border-[#E1E8E1] bg-componentColor">
         <div className="marquee-track flex w-max">
           {[...products, ...products].map((product, index) => {
             const isUp = product.change?.dir === "up";
