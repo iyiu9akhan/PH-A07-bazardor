@@ -37,7 +37,6 @@ export default function RootLayout({
       <body className="min-h-full">
         <Header/>
           <Category />
-          {/* <MarqueeWrapper /> */}
           <MarqueeText/>
         {children}
       </body>

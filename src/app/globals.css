@@ -13,8 +13,8 @@ html {
   --color-componentColor: #fafcfa;
   --color-brand: #05893e;
   --color-primaryText: #1d271f;
+  --color-secondaryText: #f3fbf4;
 }
-
 
 /* .marquee-track {
   animation: marquee 35s linear infinite;

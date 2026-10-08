@@ -10,7 +10,7 @@ const CurrentDate = async () => {
   });
 
   return (
-    <p className="font-normal text-[12px] leading-4 min-h-[16px]">{date}</p>
+    <p className="font-normal text-[12px] leading-4 min-h-4">{date}</p>
   );
 };
 
