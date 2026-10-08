@@ -1,14 +1,11 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import brandLogo from "@/assets/brand-logo.png";
 import profileImage from "@/assets/profileImg.png";
+import CurrentDate from "./CurrentDate";
 
 const Header = () => {
-  const currentDate = new Date().toLocaleDateString("bn-BD", {
-    dateStyle: "full",
-    timeZone: "Asia/Dhaka",
-  });
-
   return (
     <div className="bg-componentColor">
       <div className="px-4 max-w-6xl mx-auto">
@@ -30,9 +27,7 @@ const Header = () => {
                   <p className="font-bold text-[20px] leading-7 tracking-[-0.5px]">
                     বাজার দর
                   </p>
-                  <p className="font-normal text-[12px] leading-4">
-                    {currentDate}
-                  </p>
+                  <CurrentDate />
                 </div>
               </div>
             </Link>
