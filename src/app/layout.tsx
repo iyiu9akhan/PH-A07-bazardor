@@ -34,7 +34,6 @@ export default function RootLayout({
           <Header />
           <Category />
         </div>
-
         <div className="pt-28.75 flex flex-col flex-1">
           <MarqueeText />
           <div className="flex-1">{children}</div>

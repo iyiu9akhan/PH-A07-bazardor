@@ -58,3 +58,5 @@ export interface ProductType {
   change: PriceChangeType;
   markets: MarketPriceType[];
 }
+
+
