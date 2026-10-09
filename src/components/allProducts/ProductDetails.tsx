@@ -98,11 +98,17 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               {product.categoryNameBn || product.category}
             </p>
             <p className="font-normal text-[14px] leading-5 text-primaryText">
-              গতকালের তুলনায় আজ দাম{" "}
-              <span className=" font-semibold">
-                {isUp ? "বেড়েছে" : "কমেছে"} {convertToBanglaNumber(diffAmount)}{" "}
-                টাকা
-              </span>
+              {product.change?.dir === "same" ? (
+                "গতকালের তুলনায় আজ দাম অপরিবর্তিত"
+              ) : (
+                <>
+                  গতকালকের তুলনায় আজ দাম{" "}
+                  <span className=" font-semibold">
+                    {isUp ? "বেড়েছে" : "কমেছে"}{" "}
+                    {convertToBanglaNumber(diffAmount)} টাকা
+                  </span>
+                </>
+              )}
             </p>
           </div>
         </div>
@@ -117,94 +123,122 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           <span className="font-normal text-[14px] leading-5 text-primaryText/70 block">
             টাকা / {getBanglaUnit(product.unit)}
           </span>
-          <span
-            className={`font-semibold text-[14px] leading-5 ${isUp ? "text-[#D03739]" : "text-brand"}`}
-          >
-            {isUp ? "▲" : "▼"}{" "}
-            {convertToBanglaNumber(product.change?.pct, true)}%
-          </span>
+       <span
+  className={`font-semibold text-[14px] leading-5 ${
+    product.change?.dir === "same" || product.change?.pct === 0
+      ? "text-gray-500"
+      : isUp
+      ? "text-[#D03739]"
+      : "text-brand"
+  }`}
+>
+  {product.change?.dir === "same" || product.change?.pct === 0
+    ? "— ০.০%"
+    : `${isUp ? "▲" : "▼"} ${convertToBanglaNumber(Math.abs(product.change?.pct))}%`}
+</span>
         </div>
       </div>
 
-      <div className="mb-8">
-        <h2 className="text-lg font-bold text-gray-800 mb-4">
+      <div className="bg-componentColor p-5.25 rounded-2xl border border-[#E1E8E1]">
+        <h2 className="font-semibold text-[18px] leading-7 text-primaryText mb-4">
           দামের সারসংক্ষেপ
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-            <span className="text-xs text-gray-500 block mb-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+          <div className="border border-[#E1E8E1] rounded-2xl px-6.25 py-4.25">
+            <span className="font-normal text-[12px] leading-4.5 text-primaryText">
               সর্বনিম্ন দাম
             </span>
-            <span className="text-2xl font-bold text-emerald-600 block mb-1">
-              {convertToBanglaNumber(lowestPrice)} টাকা
+            <span className="font-bold text-[24px] leading-8 text-brand block">
+              {convertToBanglaNumber(lowestPrice)}{" "}
+              <span className="font-medium text-[14px]">টাকা</span>
             </span>
-            <span className="text-xs text-gray-400">
+            <span className="font-normal text-[12px] leading-4.5 text-primaryText">
               সবচেয়ে কম দামের বাজার
             </span>
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-            <span className="text-xs text-gray-500 block mb-1">
+          <div className="border border-[#E1E8E1] rounded-2xl px-6.25 py-4.25">
+            <span className="font-normal text-[12px] leading-4.5 text-primaryText">
               সর্বাধিক দাম
             </span>
-            <span className="text-2xl font-bold text-red-500 block mb-1">
-              {convertToBanglaNumber(highestPrice)} টাকা
+            <span className="font-bold text-[24px] leading-8 text-[#D03739] block">
+              {convertToBanglaNumber(highestPrice)} <span>টাকা</span>
             </span>
-            <span className="text-xs text-gray-400">
+            <span className="font-normal text-[12px] leading-4.5 text-primaryText">
               সবচেয়ে বেশি দামের বাজার
             </span>
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-            <span className="text-xs text-gray-500 block mb-1">গড় দাম</span>
-            <span className="text-2xl font-bold text-gray-800 block mb-1">
-              {convertToBanglaNumber(product.today)} টাকা
+          <div className="border border-[#E1E8E1] rounded-2xl px-6.25 py-4.25">
+            <span className="font-normal text-[12px] leading-4.5 text-primaryText">
+              গড় দাম
             </span>
-            <span className="text-xs text-gray-400">প্রতি কেজি-এর হিসাবে</span>
+            <span className="font-bold text-[24px] leading-8 text-brand block">
+              {convertToBanglaNumber(product.today)}{" "}
+              <span className="font-medium text-[14px]">টাকা</span>
+            </span>
+            <span className="font-normal text-[12px] leading-4.5 text-primaryText">
+              প্রতি কেজি-এর হিসাবে
+            </span>
           </div>
         </div>
-      </div>
+        <div className="rounded-2xl overflow-hidden">
+          <div className=" border-b border-gray-100">
+            <h2 className="font-semibold text-[18px] leading-7 text-primaryText mb-4">
+              বাজারভিত্তিক আজকের দাম
+            </h2>
+          </div>
 
-      <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
-        <div className="p-5 border-b border-gray-100">
-          <h2 className="text-lg font-bold text-gray-800">
-            বাজারভিত্তিক আজকের দাম
-          </h2>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-gray-50/70 text-gray-600 text-sm border-b border-gray-100">
-                <th className="py-3.5 px-6 font-medium">বাজার</th>
-                <th className="py-3.5 px-6 font-medium">বিভাগ</th>
-                <th className="py-3.5 px-6 font-medium">সর্বনিম্ন</th>
-                <th className="py-3.5 px-6 font-medium">সর্বাধিক</th>
-                <th className="py-3.5 px-6 font-medium">গড়</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100 text-sm">
-              {sortedMarkets.map((m, index) => (
-                <tr
-                  key={index}
-                  className="hover:bg-gray-50/50 transition-colors"
-                >
-                  <td className="py-4 px-6 text-gray-900 font-medium">
-                    {m.market}
-                  </td>
-                  <td className="py-4 px-6 text-gray-600">{m.division}</td>
-                  <td className="py-4 px-6 text-gray-800">
-                    {convertToBanglaNumber(m.min)} টাকা
-                  </td>
-                  <td className="py-4 px-6 text-gray-800">
-                    {convertToBanglaNumber(m.max)} টাকা
-                  </td>
-                  <td className="py-4 px-6 text-gray-900 font-medium">
-                    {convertToBanglaNumber(getAverage(m.min, m.max))} টাকা
-                  </td>
+          <div className="overflow-x-auto border border-[#E1E8E1] rounded-2xl bg-white">
+            <table className="table table-zebra w-full text-left border-collapse">
+              <thead>
+                <tr className="font-bold text-[14px] leading-5.25 text-primaryText/60">
+                  <th className="py-3.5 px-6 font-medium">বাজার</th>
+                  <th className="py-3.5 px-6 font-medium">বিভাগ</th>
+                  <th className="py-3.5 px-6 font-medium">সর্বনিম্ন</th>
+                  <th className="py-3.5 px-6 font-medium">সর্বাধিক</th>
+                  <th className="py-3.5 px-6 font-medium">গড়</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="text-sm">
+                {sortedMarkets.map((m, index) => {
+                  const isLastRow = index === sortedMarkets.length - 1;
+                  const borderClass = isLastRow ? "" : "border-b border-black";
+
+                  return (
+                    <tr
+                      key={index}
+                      className={`transition-colors ${
+                        index % 2 === 0
+                          ? "bg-white text-gray-900"
+                          : "bg-[#F0F5F0] text-componentColor"
+                      }`}
+                    >
+                      <td
+                        className={`py-4 px-6 text-gray-900 font-medium ${borderClass}`}
+                      >
+                        {m.market}
+                      </td>
+                      <td className={`py-4 px-6 text-gray-600 ${borderClass}`}>
+                        {m.division}
+                      </td>
+                      <td className={`py-4 px-6 text-gray-800 ${borderClass}`}>
+                        {convertToBanglaNumber(m.min)} টাকা
+                      </td>
+                      <td className={`py-4 px-6 text-gray-800 ${borderClass}`}>
+                        {convertToBanglaNumber(m.max)} টাকা
+                      </td>
+                      <td
+                        className={`py-4 px-6 text-gray-900 font-medium ${borderClass}`}
+                      >
+                        {convertToBanglaNumber(getAverage(m.min, m.max))} টাকা
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
