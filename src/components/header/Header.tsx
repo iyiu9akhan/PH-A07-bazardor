@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import brandLogo from "@/assets/brand-logo.png";
-import profileImage from "@/assets/profileImg.png";
 import CurrentDate from "./CurrentDate";
 import ScrollTopLink from "./ScrollTopLink";
 
@@ -31,14 +30,28 @@ const Header = () => {
           </div>
 
           <div className="flex-none">
-            <Link href="/">
-              <div className="flex items-center gap-2">
-                <Image src={profileImage} alt="profile image" />
+            <div className="flex items-center gap-7.5">
+              {/* <Image src={profileImage} alt="profile image" />
                 <p className="capitalize font-semibold text-[14px] leading-5 text-primaryText">
                   rezwan
-                </p>
-              </div>
-            </Link>
+                </p> */}
+              <Link
+                href="/signin"
+                className="font-semibold text-[14px] leading-5.25 text-primaryText"
+              >
+                সাইন ইন
+              </Link>
+              <Link
+                href="/signup"
+                style={{
+                  boxShadow:
+                    "0px 4px 3px -2px rgba(5, 137, 62, 0.5), 0px 3px 2px -2px rgba(5, 137, 62, 0.5)",
+                }}
+                className="font-semibold text-[14px] leading-5.25 text-secondaryText px-[18.27px] py-[9.8px] rounded-lg bg-brand"
+              >
+                সাইন আপ
+              </Link>
+            </div>
           </div>
         </div>
       </div>
