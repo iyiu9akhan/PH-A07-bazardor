@@ -54,7 +54,7 @@ const ProductCard = ({ item }: ProductCardProps) => {
   const { icon, color } = getDirInfo(item.change?.dir);
 
   return (
-    <Link href="/">
+    <Link href={`/product/${item.slug}`}>
       <div className="bg-componentColor p-4 rounded-xl border border-base-300 hover:border hover:border-brand duration-200 transition-colors hover:shadow-md">
         <div className="flex items-center gap-3 mb-4">
           <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-[#f0f5f0] text-2xl">

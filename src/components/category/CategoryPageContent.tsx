@@ -38,7 +38,7 @@ async function CategoryPageContent({
 
   return (
     <div>
-      <div className="flex items-center gap-4 mb-6 bg-componentColor p-5.25 rounded-2xl">
+      <div className="flex items-center gap-4 mb-6 bg-componentColor p-5.25 rounded-2xl border border-[#E1E8E1]">
         <div className="text-[40px]">{categoryIcon}</div>
         <div>
           <h1 className="font-bold text-[24px] leading-8 text-primaryText">
@@ -50,7 +50,6 @@ async function CategoryPageContent({
           </p>
         </div>
       </div>
-
       <CategorySorting initialProducts={products} />
     </div>
   );

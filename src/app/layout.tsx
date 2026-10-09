@@ -36,7 +36,7 @@ export default function RootLayout({
         </div>
         <div className="pt-28.75 flex flex-col flex-1">
           <MarqueeText />
-          <div className="flex-1">{children}</div>
+          <div className="flex-1 bg-[#f0f5f0]">{children}</div>
           <Footer />
         </div>
       </body>
