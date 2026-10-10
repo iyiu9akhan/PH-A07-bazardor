@@ -1,9 +1,10 @@
 import { Suspense } from "react";
 import Image from "next/image";
-import brandLogo from "@/assets/brand-logo.png";
+import brandLogo from "@/assets/brandLogo.png";
 import CurrentDate from "./CurrentDate";
 import ScrollTopLink from "./ScrollTopLink";
 import HeaderAuth from "./HeaderAuth";
+import { ShoppingCart } from "lucide-react";
 
 const Header = () => {
   return (
@@ -13,13 +14,9 @@ const Header = () => {
           <div className="flex-1">
             <ScrollTopLink>
               <div className="flex items-center gap-2">
-                <Image
-                  src={brandLogo}
-                  alt="Brand Logo"
-                  width={40}
-                  height={40}
-                  priority
-                />
+                <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand">
+                  <ShoppingCart className="size-6 text-white" />
+                </div>
                 <div className="flex flex-col items-start text-primaryText">
                   <p className="font-bold text-[20px] leading-7 tracking-[-0.5px]">
                     বাজার দর

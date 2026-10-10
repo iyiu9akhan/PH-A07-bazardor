@@ -3,9 +3,52 @@ import { Suspense } from "react";
 import Link from "next/link";
 import localData from "../../../../public/data.json";
 import ProductDetailsSkeleton from "@/components/allProducts/ProductDetailsSkeleton";
+import type { Metadata } from "next";
 
 interface PageProps {
   params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slug = resolvedParams.id?.toLowerCase().trim();
+
+  let products = [];
+
+  try {
+    const res = await fetch(
+      "https://openapi.programming-hero.com/api/bazardor/products",
+      { cache: "no-store" },
+    );
+    if (!res.ok) throw new Error("First API failed");
+    products = await res.json();
+  } catch {
+    try {
+      const res2 = await fetch(
+        "https://api.api-store.workers.dev/api/bazardor/products",
+        { cache: "no-store" },
+      );
+      if (!res2.ok) throw new Error("Second API failed");
+      products = await res2.json();
+    } catch {
+      products = localData.products || [];
+    }
+  }
+
+  const product = products.find(
+    (p: any) => p.slug?.toLowerCase().trim() === slug,
+  );
+
+  if (!product) {
+    return { title: "পণ্যটি খুঁজে পাওয়া যায়নি | বাজার দর" };
+  }
+
+  return {
+    title: `${product.nameBn} এর আজকের দাম | বাজারদর`,
+    description: `${product.nameBn} এর আজকের বাজার দর ও দামের ইতিহাস দেখুন।`,
+  };
 }
 
 async function ProductContent({ params }: PageProps) {
@@ -15,10 +58,6 @@ async function ProductContent({ params }: PageProps) {
   let products = [];
 
   try {
-    // const res = await fetch(
-    //   "https://api.abcz.workers.dev/api/bazardor/products",
-    //   { cache: "no-store" },
-    // );
     const res = await fetch(
       "https://openapi.programming-hero.com/api/bazardor/products",
       { cache: "no-store" },

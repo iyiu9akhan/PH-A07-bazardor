@@ -4,7 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import profileImage from "@/assets/profileImg.png";
+import profileImage from "@/assets/profilePic.jpg";
 
 type HeaderUser = { name: string; email: string; image?: string | null } | null;
 

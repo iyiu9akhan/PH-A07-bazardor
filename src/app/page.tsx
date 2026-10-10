@@ -5,6 +5,13 @@ import Banner from "@/components/banner/Banner";
 import IncreasedProducts from "@/components/IncreasedProducts/IncreasedProducts";
 import DecreasedProducts from "@/components/DecreasedProducts/DecreasedProducts";
 import localData from "../../public/data.json";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "বাজারদর | আজকের নিত্যপণ্যের দাম",
+  description:
+    "চাল, ডাল, তেল, সবজি, মাছ, মাংস ও মসলার আজকের বাজার দর এবং দাম বাড়া-কমার খবর এক জায়গায় দেখুন।",
+};
 
 async function FetchProducts() {
   let products = [];
