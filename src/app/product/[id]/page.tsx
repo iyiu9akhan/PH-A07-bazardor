@@ -55,8 +55,8 @@
 //           <p className="text-sm text-gray-500 mb-6 leading-relaxed">
 //             দুঃখিত, আপনি যে পণ্যটি খুঁজছেন (Slug: <span className="text-gray-700 font-medium">{slug}</span>) তা বর্তমানে আমাদের তালিকায় নেই।
 //           </p>
-//           <Link 
-//             href="/" 
+//           <Link
+//             href="/"
 //             className="inline-block w-full py-3 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-xl transition-all shadow-sm hover:shadow"
 //           >
 //             হোম পেজে ফিরে যান
@@ -77,11 +77,10 @@
 //   );
 // }
 
-
 import ProductDetails from "@/components/allProducts/ProductDetails";
 import { Suspense } from "react";
 import Link from "next/link";
-import localData from "../../../../public/data.json"; 
+import localData from "../../../../public/data.json";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -96,7 +95,7 @@ async function ProductContent({ params }: PageProps) {
   try {
     const res = await fetch(
       "https://api.abcz.workers.dev/api/bazardor/products",
-      { cache: "no-store" }
+      { cache: "no-store" },
     );
 
     if (!res.ok) {
@@ -104,13 +103,14 @@ async function ProductContent({ params }: PageProps) {
     }
 
     products = await res.json();
+    console.log("pageDetails: fetched from first api");
   } catch (error) {
     console.log("First API failed, trying second API...", error);
 
     try {
       const res2 = await fetch(
         "https://api.api-store.workers.dev/api/bazardor/products",
-        { cache: "no-store" }
+        { cache: "no-store" },
       );
 
       if (!res2.ok) {
@@ -118,6 +118,7 @@ async function ProductContent({ params }: PageProps) {
       }
 
       products = await res2.json();
+      console.log("pageDetails: fetched from second api");
     } catch (err2) {
       console.log("Both APIs failed, falling back to local data.json...", err2);
       products = localData.products || [];
@@ -125,7 +126,7 @@ async function ProductContent({ params }: PageProps) {
   }
 
   const product = products.find(
-    (p: any) => p.slug?.toLowerCase().trim() === slug
+    (p: any) => p.slug?.toLowerCase().trim() === slug,
   );
 
   if (!product) {
@@ -139,10 +140,10 @@ async function ProductContent({ params }: PageProps) {
             পণ্যটি খুঁজে পাওয়া যায়নি
           </h1>
           <p className="text-sm text-gray-500 mb-6 leading-relaxed">
-            দুঃখিত, আপনি যে পণ্যটি খুঁজছেন  তা বর্তমানে আমাদের তালিকায় নেই।
+            দুঃখিত, আপনি যে পণ্যটি খুঁজছেন তা বর্তমানে আমাদের তালিকায় নেই।
           </p>
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="inline-block w-full py-3 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-xl transition-all shadow-sm hover:shadow"
           >
             হোম পেজে ফিরে যান
@@ -157,7 +158,13 @@ async function ProductContent({ params }: PageProps) {
 
 export default function ProductPage({ params }: PageProps) {
   return (
-    <Suspense fallback={<div className="text-center py-20 text-emerald-600 font-medium">লোড হচ্ছে...</div>}>
+    <Suspense
+      fallback={
+        <div className="text-center py-20 text-emerald-600 font-medium">
+          লোড হচ্ছে...
+        </div>
+      }
+    >
       <ProductContent params={params} />
     </Suspense>
   );

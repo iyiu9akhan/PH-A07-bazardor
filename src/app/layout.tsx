@@ -2,10 +2,10 @@ import Category from "@/components/category/Category";
 import Header from "@/components/header/Header";
 import type { Metadata } from "next";
 import { Quicksand, Hind_Siliguri } from "next/font/google";
-import { Suspense } from "react";
 import "./globals.css";
 import MarqueeText from "@/components/marquee/MarqueeText";
 import Footer from "@/components/footer/Footer";
+import { Toaster } from "react-hot-toast";
 
 const quicksand = Quicksand({
   variable: "--font-quicksand",
@@ -39,6 +39,7 @@ export default function RootLayout({
           <div className="flex-1 bg-[#f0f5f0]">{children}</div>
           <Footer />
         </div>
+        <Toaster />
       </body>
     </html>
   );

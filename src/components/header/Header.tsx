@@ -1,8 +1,9 @@
+import { Suspense } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import brandLogo from "@/assets/brand-logo.png";
 import CurrentDate from "./CurrentDate";
 import ScrollTopLink from "./ScrollTopLink";
+import HeaderAuth from "./HeaderAuth";
 
 const Header = () => {
   return (
@@ -23,35 +24,18 @@ const Header = () => {
                   <p className="font-bold text-[20px] leading-7 tracking-[-0.5px]">
                     বাজার দর
                   </p>
-                  <CurrentDate />
+                  <Suspense fallback={<div className="h-4 w-24" />}>
+                    <CurrentDate />
+                  </Suspense>
                 </div>
               </div>
             </ScrollTopLink>
           </div>
 
           <div className="flex-none">
-            <div className="flex items-center gap-7.5">
-              {/* <Image src={profileImage} alt="profile image" />
-                <p className="capitalize font-semibold text-[14px] leading-5 text-primaryText">
-                  rezwan
-                </p> */}
-              <Link
-                href="/signin"
-                className="font-semibold text-[14px] leading-5.25 text-primaryText"
-              >
-                সাইন ইন
-              </Link>
-              <Link
-                href="/signup"
-                style={{
-                  boxShadow:
-                    "0px 4px 3px -2px rgba(5, 137, 62, 0.5), 0px 3px 2px -2px rgba(5, 137, 62, 0.5)",
-                }}
-                className="font-semibold text-[14px] leading-5.25 text-secondaryText px-[18.27px] py-[9.8px] rounded-lg bg-brand"
-              >
-                সাইন আপ
-              </Link>
-            </div>
+            <Suspense fallback={<div className="h-8 w-24" />}>
+              <HeaderAuth />
+            </Suspense>
           </div>
         </div>
       </div>
