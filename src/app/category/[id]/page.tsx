@@ -1,11 +1,13 @@
 import { Suspense } from "react";
 import CategoryPageContent from "@/components/category/CategoryPageContent";
+import { notFound } from "next/navigation";
 
 export default function CategoryPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
+  
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6">
       <Suspense

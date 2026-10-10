@@ -1,11 +1,14 @@
-import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
+"use client";
+
+import { authClient } from "@/lib/auth-client";
 import HeaderBtn from "./HeaderBtn";
 
-const HeaderAuth = async () => {
-  const session = await auth.api.getSession({ headers: await headers() });
+export default function HeaderAuth() {
+  const { data: session, isPending } = authClient.useSession();
+
+  if (isPending) {
+    return <div className="h-9 w-24 animate-pulse rounded-lg bg-gray-100/10" />;
+  }
 
   return <HeaderBtn user={session?.user ?? null} />;
-};
-
-export default HeaderAuth;
+}

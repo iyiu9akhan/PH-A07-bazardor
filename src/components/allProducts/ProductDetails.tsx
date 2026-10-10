@@ -123,19 +123,19 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           <span className="font-normal text-[14px] leading-5 text-primaryText/70 block">
             টাকা / {getBanglaUnit(product.unit)}
           </span>
-       <span
-  className={`font-semibold text-[14px] leading-5 ${
-    product.change?.dir === "same" || product.change?.pct === 0
-      ? "text-gray-500"
-      : isUp
-      ? "text-[#D03739]"
-      : "text-brand"
-  }`}
->
-  {product.change?.dir === "same" || product.change?.pct === 0
-    ? "— ০.০%"
-    : `${isUp ? "▲" : "▼"} ${convertToBanglaNumber(Math.abs(product.change?.pct))}%`}
-</span>
+          <span
+            className={`font-semibold text-[14px] leading-5 ${
+              product.change?.dir === "same" || product.change?.pct === 0
+                ? "text-gray-500"
+                : isUp
+                  ? "text-[#D03739]"
+                  : "text-brand"
+            }`}
+          >
+            {product.change?.dir === "same" || product.change?.pct === 0
+              ? "— ০.০%"
+              : `${isUp ? "▲" : "▼"} ${convertToBanglaNumber(Math.abs(product.change?.pct))}%`}
+          </span>
         </div>
       </div>
 

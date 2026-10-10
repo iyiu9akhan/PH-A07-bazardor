@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { categoryType } from "@/types/CategoryType";
 import CategorySorting from "@/components/category/CategorySorting";
 
@@ -8,14 +9,32 @@ async function CategoryPageContent({
 }) {
   const { id } = await params;
 
+  // const res = await fetch(
+  //   `https://api.abcz.workers.dev/api/bazardor/products?category=${encodeURIComponent(id)}`,
+  //   {
+  //     next: {
+  //       revalidate: 60,
+  //     },
+  //   },
+  // );
   const res = await fetch(
-    `https://api.abcz.workers.dev/api/bazardor/products?category=${id}`,
+    `https://openapi.programming-hero.com/api/bazardor/products?category=${encodeURIComponent(id)}`,
     {
       next: {
         revalidate: 60,
       },
     },
   );
+
+  if (!res.ok) {
+    notFound();
+  }
+
+  const products: categoryType[] = await res.json();
+
+  if (!Array.isArray(products) || products.length === 0) {
+    notFound();
+  }
 
   const convertToBanglaNumber = (num: number) => {
     const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -31,25 +50,26 @@ async function CategoryPageContent({
       .join("");
   };
 
-  const products: categoryType[] = await res.json();
-
-  const categoryTitle = products?.[0]?.categoryNameBn || id;
-  const categoryIcon = products?.[0]?.categoryIcon || id;
+  const categoryTitle = products[0].categoryNameBn;
+  const categoryIcon = products[0].categoryIcon;
 
   return (
     <div>
-      <div className="flex items-center gap-4 mb-6 bg-componentColor p-5.25 rounded-2xl border border-[#E1E8E1]">
+      <div className="mb-6 flex items-center gap-4 rounded-2xl border border-[#E1E8E1] bg-componentColor p-5.25">
         <div className="text-[40px]">{categoryIcon}</div>
+
         <div>
-          <h1 className="font-bold text-[24px] leading-8 text-primaryText">
+          <h1 className="text-[24px] leading-8 font-bold text-primaryText">
             {categoryTitle}
           </h1>
-          <p className="font-normal text-[14px] leading-5 text-primaryText/75">
+
+          <p className="text-[14px] leading-5 font-normal text-primaryText/75">
             {convertToBanglaNumber(products.length)}টি পণ্যের আজকের দাম ও
             পরিবর্তন
           </p>
         </div>
       </div>
+
       <CategorySorting initialProducts={products} />
     </div>
   );

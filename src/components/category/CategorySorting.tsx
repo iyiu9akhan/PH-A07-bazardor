@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useRef, useEffect } from "react";
 import ProductCard from "@/components/allProducts/ProductCard";
 import { categoryType } from "@/types/CategoryType";
@@ -15,7 +14,6 @@ export default function CategorySorting({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // বাইরে ক্লিক করলে ড্রপডাউন বন্ধ হয়ে যাবে
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (

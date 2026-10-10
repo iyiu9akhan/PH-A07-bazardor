@@ -10,6 +10,8 @@ export default function SigninPage() {
   const router = useRouter();
 
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [githubLoading, setGithubLoading] = useState(false);
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -61,13 +63,24 @@ export default function SigninPage() {
       callbackURL: "/",
     });
 
-    // সফল হলে page Google এ চলে যায়, তাই এখানে আসে শুধু error হলে
     if (error) {
       setGoogleLoading(false);
       toast.error(error.message || "Google দিয়ে লগইন করা যায়নি");
     }
   };
 
+  const handleGithubSignIn = async () => {
+    setGithubLoading(true);
+    const { error } = await authClient.signIn.social({
+      provider: "github",
+      callbackURL: "/",
+    });
+
+    if (error) {
+      setGithubLoading(false);
+      toast.error(error.message || "GitHub দিয়ে লগইন করা যায়নি");
+    }
+  };
   return (
     <div className="px-4 py-10">
       <div className="mx-auto w-full max-w-md">
@@ -83,6 +96,8 @@ export default function SigninPage() {
             onSubmit={onSubmit}
             handleGoogleSignIn={handleGoogleSignIn}
             googleLoading={googleLoading}
+            handleGithubSignIn={handleGithubSignIn}
+            githubLoading={githubLoading}
           />
         </div>
 

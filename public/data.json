@@ -427,7 +427,7 @@
     },
     {
       "id": 11,
-      "slug": "ghani-bhanga-sorishar-tel",
+      "slug": "ghani-banga-sorishar-tel",
       "nameBn": "ঘানি ভাঙা সরিষার তেল",
       "category": "tel",
       "categoryNameBn": "তেল",
@@ -640,7 +640,7 @@
     },
     {
       "id": 18,
-      "slug": "telapia",
+      "slug": "telapiya-mach",
       "nameBn": "তেলাপিয়া",
       "category": "mach",
       "categoryNameBn": "মাছ",
@@ -799,7 +799,7 @@
     },
     {
       "id": 26,
-      "slug": "dim",
+      "slug": "dim-dui",
       "nameBn": "ডিম",
       "category": "dim-dui",
       "categoryNameBn": "ডিম-দুধ",

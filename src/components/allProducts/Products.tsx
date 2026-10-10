@@ -1,4 +1,3 @@
-import React from "react";
 import { ProductType } from "@/types/apiDataType";
 import ProductCard from "./ProductCard";
 

@@ -1,8 +1,16 @@
 import { Product } from "@/types/apiDataType";
 
 async function getProducts(): Promise<Product[]> {
+  // const res = await fetch(
+  //   "https://api.abcz.workers.dev/api/bazardor/products",
+  //   {
+  //     next: {
+  //       revalidate: 60,
+  //     },
+  //   },
+  // );
   const res = await fetch(
-    "https://api.abcz.workers.dev/api/bazardor/products",
+    "https://openapi.programming-hero.com/api/bazardor/products",
     {
       next: {
         revalidate: 60,
@@ -15,6 +23,7 @@ async function getProducts(): Promise<Product[]> {
   }
 
   const data = await res.json();
+  console.log("marquee : fetched from first api")
 
   return Array.isArray(data) ? data : data.products || [];
 }
