@@ -15,7 +15,7 @@ const Header = () => {
             <ScrollTopLink>
               <div className="flex items-center gap-2">
                 <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand">
-                  <ShoppingCart className="size-6 text-white" />
+                  <ShoppingCart className="size-5 text-white" />
                 </div>
                 <div className="flex flex-col items-start text-primaryText">
                   <p className="font-bold text-[20px] leading-7 tracking-[-0.5px]">

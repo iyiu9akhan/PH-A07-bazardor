@@ -58,12 +58,14 @@ export default function SigninPage() {
 
   const handleGoogleSignIn = async () => {
     setGoogleLoading(true);
+    sessionStorage.setItem("signin-toast", "1");
     const { error } = await authClient.signIn.social({
       provider: "google",
       callbackURL: "/",
     });
 
     if (error) {
+      sessionStorage.removeItem("signin-toast");
       setGoogleLoading(false);
       toast.error(error.message || "Google দিয়ে লগইন করা যায়নি");
     }
@@ -71,12 +73,14 @@ export default function SigninPage() {
 
   const handleGithubSignIn = async () => {
     setGithubLoading(true);
+    sessionStorage.setItem("signin-toast", "1");
     const { error } = await authClient.signIn.social({
       provider: "github",
       callbackURL: "/",
     });
 
     if (error) {
+      sessionStorage.removeItem("signin-toast");
       setGithubLoading(false);
       toast.error(error.message || "GitHub দিয়ে লগইন করা যায়নি");
     }

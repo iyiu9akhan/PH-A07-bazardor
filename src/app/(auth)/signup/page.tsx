@@ -33,7 +33,7 @@ const SignupPage = () => {
     });
 
     if (data) {
-      toast.success("অ্যাকাউন্ট তৈরি হয়েছে! স্বাগতম 👋", {
+      toast.success("রেজিস্ট্রেশন সফল হয়েছে, স্বাগতম !", {
         duration: 3000,
         style: {
           background: "#FAFCFA",
@@ -58,7 +58,7 @@ const SignupPage = () => {
 
     if (error) {
       toast.error(
-        error.message || "অ্যাকাউন্ট তৈরি করা যায়নি, আবার চেষ্টা করুন",
+        error.message || "অ্যাকাউন্ট রেজিস্ট্রেশন করা যায়নি, আবার চেষ্টা করুন",
       );
       console.log(error);
     }
@@ -66,12 +66,14 @@ const SignupPage = () => {
 
   const handleGoogleSignIn = async () => {
     setGoogleLoading(true);
+    sessionStorage.setItem("signin-toast", "1");
     const { error } = await authClient.signIn.social({
       provider: "google",
       callbackURL: "/",
     });
 
     if (error) {
+      sessionStorage.removeItem("signin-toast");
       setGoogleLoading(false);
       toast.error(error.message || "Google দিয়ে লগইন করা যায়নি");
     }
@@ -79,12 +81,14 @@ const SignupPage = () => {
 
   const handleGithubSignIn = async () => {
     setGithubLoading(true);
+    sessionStorage.setItem("signin-toast", "1");
     const { error } = await authClient.signIn.social({
       provider: "github",
       callbackURL: "/",
     });
 
     if (error) {
+      sessionStorage.removeItem("signin-toast");
       setGithubLoading(false);
       toast.error(error.message || "GitHub দিয়ে লগইন করা যায়নি");
     }

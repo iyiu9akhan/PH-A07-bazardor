@@ -12,12 +12,24 @@ const ProfileView = ({ user }: { user: ProfileUser }) => {
   const router = useRouter();
   const [name, setName] = useState(user.name);
   const [loading, setLoading] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
 
   const trimmed = name.trim();
   const unchanged = trimmed === user.name;
 
   const handleSignOut = async () => {
-    await authClient.signOut();
+    if (signingOut) return;
+    setSigningOut(true);
+
+    const { error } = await authClient.signOut();
+
+    if (error) {
+      setSigningOut(false);
+      toast.error(error.message || "সাইন আউট করা যায়নি, আবার চেষ্টা করুন");
+      return;
+    }
+
+    toast.success("সাইন আউট সফল হয়েছে!");
     router.push("/");
     router.refresh();
   };
@@ -36,7 +48,7 @@ const ProfileView = ({ user }: { user: ProfileUser }) => {
     }
 
     toast.success("নাম আপডেট হয়েছে!");
-    router.refresh(); 
+    router.refresh();
   };
 
   return (
@@ -73,9 +85,17 @@ const ProfileView = ({ user }: { user: ProfileUser }) => {
           <button
             type="button"
             onClick={handleSignOut}
-            className="w-full md:w-auto text-center font-semibold text-[12px] leading-4 text-[#D03739] hover:text-secondaryText px-3 py-2.5 border border-[#D03739] rounded-lg hover:bg-[#D03739] transition cursor-pointer"
+            disabled={signingOut}
+            className="w-full md:w-auto flex items-center justify-center gap-2 text-center font-semibold text-[12px] leading-4 text-[#D03739] hover:text-secondaryText px-3 py-2.5 border border-[#D03739] rounded-lg hover:bg-[#D03739] transition cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            ↩ সাইন আউট
+            {signingOut ? (
+              <>
+                <span className="size-3.5 animate-spin rounded-full border-2 border-current/30 border-t-current" />
+                অপেক্ষা করুন...
+              </>
+            ) : (
+              "↩ সাইন আউট"
+            )}
           </button>
         </div>
 

@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import CategoryPageContent from "@/components/category/CategoryPageContent";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import CategoryPageSkeleton from "@/components/category/CategoryPageSkeleton";
 
 const categoryNames: Record<string, string> = {
   chal: "চাল",
@@ -36,13 +37,7 @@ export default function CategoryPage({
 }) {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6">
-      <Suspense
-        fallback={
-          <div className="flex justify-center py-10">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-brand"></div>
-          </div>
-        }
-      >
+     <Suspense fallback={<CategoryPageSkeleton />}>
         <CategoryPageContent params={params} />
       </Suspense>
     </div>

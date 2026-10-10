@@ -5,12 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import profileImage from "@/assets/profilePic.jpg";
+import toast from "react-hot-toast";
 
 type HeaderUser = { name: string; email: string; image?: string | null } | null;
 
 const HeaderBtn = ({ user }: { user: HeaderUser }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,8 +26,20 @@ const HeaderBtn = ({ user }: { user: HeaderUser }) => {
   }, []);
 
   const handleSignOut = async () => {
-    await authClient.signOut();
+    if (signingOut) return;
+    setSigningOut(true);
+
+    const { error } = await authClient.signOut();
+
+    if (error) {
+      setSigningOut(false);
+      toast.error(error.message || "সাইন আউট করা যায়নি, আবার চেষ্টা করুন");
+      return;
+    }
+
+    toast.success("সাইন আউট সফল হয়েছে!");
     setOpen(false);
+    setSigningOut(false);
     router.push("/");
     router.refresh();
   };
@@ -87,9 +101,13 @@ const HeaderBtn = ({ user }: { user: HeaderUser }) => {
               <button
                 type="button"
                 onClick={handleSignOut}
-                className="mt-1 flex w-full items-center gap-2 py-1.5 font-medium text-[14px] leading-5 text-[#D03739] cursor-pointer hover:opacity-80 transition-opacity"
+                disabled={signingOut}
+                className="mt-1 flex w-full items-center gap-2 py-1.5 font-medium text-[14px] leading-5 text-[#D03739] cursor-pointer hover:opacity-80 transition-opacity disabled:cursor-not-allowed disabled:opacity-60"
               >
                 ↩ সাইন আউট
+                {signingOut && (
+                  <span className="ml-auto size-3.5 animate-spin rounded-full border-2 border-[#D03739]/30 border-t-[#D03739]" />
+                )}
               </button>
             </div>
           )}
