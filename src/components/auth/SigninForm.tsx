@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 const inputClass =
   "w-full rounded-lg border border-[#E1E8E1] px-4 py-2.5 text-[14px] leading-5 text-primaryText placeholder:text-primaryText/60 outline-none transition-colors focus:border-brand focus:ring-2 focus:ring-brand/20";
@@ -7,7 +8,7 @@ const labelClass =
   "mb-1.5 block text-[14px] font-medium leading-5 text-primaryText";
 
 interface SigninFormProps {
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void | Promise<void>;
   handleGoogleSignIn: () => void;
   googleLoading: boolean;
   handleGithubSignIn: () => void;
@@ -21,10 +22,20 @@ export default function SigninForm({
   handleGithubSignIn,
   githubLoading,
 }: SigninFormProps) {
-  const busy = googleLoading || githubLoading;
+  const [submitting, setSubmitting] = useState(false);
+  const busy = googleLoading || githubLoading || submitting;
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setSubmitting(true);
+    try {
+      await onSubmit(e);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={onSubmit}>
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
       <div>
         <label htmlFor="email" className={labelClass}>
           ইমেইল
@@ -61,9 +72,16 @@ export default function SigninForm({
           boxShadow:
             "0px 4px 3px -2px rgba(5, 137, 62, 0.5), 0px 3px 2px -2px rgba(5, 137, 62, 0.5)",
         }}
-        className="w-full cursor-pointer rounded-lg border border-[#047F39] bg-brand px-5 py-2.5 text-[14px] font-semibold leading-5 text-secondaryText transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
+        className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-[#047F39] bg-brand px-5 py-2.5 text-[14px] font-semibold leading-5 text-secondaryText transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
       >
-        সাইন ইন
+        {submitting ? (
+          <>
+            <span className="h-4 w-4 animate-spin rounded-full border-2 border-secondaryText/30 border-t-secondaryText" />
+            অপেক্ষা করুন...
+          </>
+        ) : (
+          "সাইন ইন করুন"
+        )}
       </button>
 
       <div className="flex items-center gap-4">
