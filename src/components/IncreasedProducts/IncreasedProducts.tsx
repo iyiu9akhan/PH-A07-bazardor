@@ -15,7 +15,7 @@ const IncreasedProducts = ({ products }: ProductsProps) => {
   return (
     <div className="max-w-6xl mx-auto px-4 scroll-mt-32 mt-10 mb-4" >
       <div className="flex gap-2 items-center">
-        <span className="text-red-600 text-[16px] leading-6">▲</span>
+        <span className="text-red-600 text-[16px] leading-6 mb-3">▲</span>
         <h1 className="font-bold text-[20px] leading-7 text-primaryText mb-3">
           আজ দাম বেড়েছে
         </h1>

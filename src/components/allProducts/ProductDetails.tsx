@@ -56,16 +56,22 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     return ((min + max) / 2).toFixed(1);
   };
 
-  const isUp = product.change?.dir === "up";
   const diffAmount = Math.abs(product.today - product.yesterday);
+
+  const isSame =
+    product.change?.dir === "same" ||
+    product.change?.pct === 0 ||
+    diffAmount === 0;
+
+  const isUp = !isSame && product.change?.dir === "up";
 
   const sortedMarkets = [...(product.markets || [])].sort(
     (a, b) => a.min - b.min,
   );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="breadcrumbs font-normal text-[14px] leading-5 text-primaryText mb-8">
+    <div className="max-w-6xl mx-auto px-4 py-4 md:py-8">
+      <div className="breadcrumbs font-normal text-[14px] leading-5 text-primaryText mb-4 md:mb-8">
         <ul>
           <li>
             <Link href="/" className="hover:text-emerald-600">
@@ -84,8 +90,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         </ul>
       </div>
 
-      <div className="bg-componentColor border border-[#E1E8E1] rounded-2xl p-6  flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6">
-        <div className="flex items-center gap-4">
+      <div className="bg-componentColor border border-[#E1E8E1] rounded-2xl p-6  flex flex-col md:flex-row justify-between items-center gap-6 mb-6">
+        <div className="flex flex-col md:flex-row items-center text-center md:text-start gap-4">
           <div className="w-20 h-20 bg-[#F0F5F0] rounded-2xl text-[36px] flex items-center justify-center">
             {product.image}
           </div>
@@ -98,11 +104,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               {product.categoryNameBn || product.category}
             </p>
             <p className="font-normal text-[14px] leading-5 text-primaryText">
-              {product.change?.dir === "same" ? (
+              {isSame ? (
                 "গতকালের তুলনায় আজ দাম অপরিবর্তিত"
               ) : (
                 <>
-                  গতকালকের তুলনায় আজ দাম{" "}
+                  গতকালের তুলনায় আজ দাম{" "}
                   <span className=" font-semibold">
                     {isUp ? "বেড়েছে" : "কমেছে"}{" "}
                     {convertToBanglaNumber(diffAmount)} টাকা
@@ -113,7 +119,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           </div>
         </div>
 
-        <div className=" rounded-2xl px-5 py-4 text-center bg-[#F0F5F0]">
+        <div className=" rounded-2xl px-5 py-4 text-center bg-[#F0F5F0] w-full md:w-auto">
           <span className="font-normal text-[14px] leading-5 text-primaryText/70 block">
             আজকের দাম
           </span>
@@ -125,14 +131,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           </span>
           <span
             className={`font-semibold text-[14px] leading-5 ${
-              product.change?.dir === "same" || product.change?.pct === 0
-                ? "text-gray-500"
-                : isUp
-                  ? "text-[#D03739]"
-                  : "text-brand"
+              isSame ? "text-gray-500" : isUp ? "text-[#D03739]" : "text-brand"
             }`}
           >
-            {product.change?.dir === "same" || product.change?.pct === 0
+            {isSame
               ? "— ০.০%"
               : `${isUp ? "▲" : "▼"} ${convertToBanglaNumber(Math.abs(product.change?.pct))}%`}
           </span>
@@ -144,7 +146,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           দামের সারসংক্ষেপ
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
-          <div className="border border-[#E1E8E1] rounded-2xl px-6.25 py-4.25">
+          <div className="border border-[#E1E8E1] rounded-2xl px-6.25 py-4.25 text-center md:text-start">
             <span className="font-normal text-[12px] leading-4.5 text-primaryText">
               সর্বনিম্ন দাম
             </span>
@@ -157,7 +159,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             </span>
           </div>
 
-          <div className="border border-[#E1E8E1] rounded-2xl px-6.25 py-4.25">
+          <div className="border border-[#E1E8E1] rounded-2xl px-6.25 py-4.25 text-center md:text-start">
             <span className="font-normal text-[12px] leading-4.5 text-primaryText">
               সর্বাধিক দাম
             </span>
@@ -169,7 +171,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             </span>
           </div>
 
-          <div className="border border-[#E1E8E1] rounded-2xl px-6.25 py-4.25">
+          <div className="border border-[#E1E8E1] rounded-2xl px-6.25 py-4.25 text-center md:text-start">
             <span className="font-normal text-[12px] leading-4.5 text-primaryText">
               গড় দাম
             </span>
@@ -178,7 +180,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               <span className="font-medium text-[14px]">টাকা</span>
             </span>
             <span className="font-normal text-[12px] leading-4.5 text-primaryText">
-              প্রতি কেজি-এর হিসাবে
+              প্রতি {getBanglaUnit(product.unit)}-এর হিসাবে
             </span>
           </div>
         </div>

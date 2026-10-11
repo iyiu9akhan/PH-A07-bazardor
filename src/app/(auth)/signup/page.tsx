@@ -4,10 +4,13 @@ import { useRouter } from "next/navigation";
 import SignupForm from "@/components/auth/SignupForm";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const SignupPage = () => {
   const router = useRouter();
+  useEffect(() => {
+    document.title = "সাইন আপ";
+  }, []);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [githubLoading, setGithubLoading] = useState(false);
 

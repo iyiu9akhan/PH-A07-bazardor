@@ -6,14 +6,14 @@ import ProductDetailsSkeleton from "@/components/allProducts/ProductDetailsSkele
 import type { Metadata } from "next";
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
-  const slug = resolvedParams.id?.toLowerCase().trim();
+  const slug = resolvedParams.slug?.toLowerCase().trim();
 
   let products = [];
 
@@ -53,7 +53,7 @@ export async function generateMetadata({
 
 async function ProductContent({ params }: PageProps) {
   const resolvedParams = await params;
-  const slug = resolvedParams.id?.toLowerCase().trim();
+  const slug = resolvedParams.slug?.toLowerCase().trim();
 
   let products = [];
 

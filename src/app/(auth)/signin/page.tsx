@@ -4,11 +4,13 @@ import { useRouter } from "next/navigation";
 import SigninForm from "@/components/auth/SigninForm";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SigninPage() {
   const router = useRouter();
-
+  useEffect(() => {
+    document.title = "সাইন ইন";
+  }, []);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [githubLoading, setGithubLoading] = useState(false);
 
