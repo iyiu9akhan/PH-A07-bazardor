@@ -1,13 +1,10 @@
-
+"use client";
 import Link from "next/link";
-import {
-  Home,
-  Search,
-  ShoppingBasket,
-  ArrowLeft,
-} from "lucide-react";
+import { Home, Search, ShoppingBasket, ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function NotFound() {
+  const router = useRouter();
   return (
     <main className="flex min-h-[75vh] items-center justify-center px-4 py-16">
       <div className="w-full max-w-2xl text-center">
@@ -42,8 +39,8 @@ export default function NotFound() {
         </h1>
 
         <p className="mx-auto mt-5 max-w-md text-sm leading-7 text-primaryText/70 sm:text-base">
-          দুঃখিত, আপনি যে পেজটি খুঁজছেন সেটি পাওয়া যাচ্ছে না।
-          লিংকটি ভুল হতে পারে অথবা পেজটি সরিয়ে ফেলা হয়েছে।
+          দুঃখিত, আপনি যে পেজটি খুঁজছেন সেটি পাওয়া যাচ্ছে না। লিংকটি ভুল হতে
+          পারে অথবা পেজটি সরিয়ে ফেলা হয়েছে।
         </p>
 
         <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -55,16 +52,24 @@ export default function NotFound() {
             হোমপেজে ফিরে যান
           </Link>
 
-          <Link
-            href="/"
+          {/* <Link
+            href="/category/chal"
             className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-brand/20 px-6 py-3.5 text-sm font-semibold text-brand transition-colors duration-200 hover:bg-brand/5 sm:w-auto"
           >
             <ArrowLeft size={18} />
-            বাজারদরে ফিরে যান
-          </Link>
+           পূর্ববর্তী পেজে যান
+          </Link> */}
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-brand/20 px-6 py-3.5 text-sm font-semibold text-brand transition-colors duration-200 hover:bg-brand/5 sm:w-auto cursor-pointer"
+          >
+            <ArrowLeft size={18} />
+            পূর্ববর্তী পেজে যান
+          </button>
         </div>
 
-        <div className="mx-auto mt-12 max-w-sm border-t border-primaryText/10 pt-6">
+        {/* <div className="mx-auto mt-12 max-w-sm border-t border-primaryText/10 pt-6">
           <p className="text-sm text-primaryText/60">
             বাজারদর দেখতে চাইছেন?
           </p>
@@ -76,7 +81,7 @@ export default function NotFound() {
             <Search size={16} />
             আমাদের হোমপেজ ঘুরে দেখুন
           </Link>
-        </div>
+        </div> */}
       </div>
     </main>
   );

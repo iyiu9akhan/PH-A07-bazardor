@@ -1,6 +1,10 @@
 import { cacheLife } from "next/cache";
 
-const CurrentDate = async () => {
+const CurrentDate = async ({
+  className = "font-normal text-[12px] leading-4 min-h-4",
+}: {
+  className?: string;
+}) => {
   "use cache";
   cacheLife("hours");
 
@@ -9,9 +13,7 @@ const CurrentDate = async () => {
     timeZone: "Asia/Dhaka",
   });
 
-  return (
-    <p className="font-normal text-[12px] leading-4 min-h-4">{date}</p>
-  );
+  return <p className={className}>{date}</p>;
 };
 
 export default CurrentDate;

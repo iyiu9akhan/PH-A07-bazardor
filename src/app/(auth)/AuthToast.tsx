@@ -7,11 +7,11 @@ export default function AuthToast() {
   const { data: session, isPending } = authClient.useSession();
 
   useEffect(() => {
-    console.log("AuthToast:", {
-      isPending,
-      hasSession: !!session,
-      flag: sessionStorage.getItem("signin-toast"),
-    });
+    // console.log("AuthToast:", {
+    //   isPending,
+    //   hasSession: !!session,
+    //   flag: sessionStorage.getItem("signin-toast"),
+    // });
 
     if (isPending || !session) return;
 
